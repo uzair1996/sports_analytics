@@ -1,17 +1,4 @@
-.jumbotron {
-  background-image: url('images/cric.jpeg');
-  backdrop-filter: blur(0px);
-  background-size: cover;
-  background-color: #192233;
-  color: #000000;
-  padding: 100px 25px;
-}
-.jumbotron h1 {
-  font-size: 4em;
-}
-.jumbotron p {
-  font-size: 2em;
-}
+
 
 .navbar {
   position: fixed;
@@ -354,7 +341,6 @@ td {
 }
   
   
-
 
 
   

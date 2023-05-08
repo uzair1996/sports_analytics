@@ -201,7 +201,7 @@ boxes.forEach(box => {
       </div>
     </form>
     <ul class="nav navbar-nav navbar-right"> <!-- Add this line -->
-      <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li> <!-- Add this line -->
+      <li><a href="{% url 'logout'}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li> <!-- Add this line -->
     </ul> <!-- Add this line -->
   </div>
 </nav>
@@ -209,7 +209,7 @@ boxes.forEach(box => {
 
 
 
-  <div class="jumbotron" style="background-image: url('{% static 'images/cric.jpeg' %}'); backdrop-filter: blur(0px); background-size: cover; background-color: #192233; color: #000000; padding: 350px 200px; min-height: 100%;">
+  <div class="jumbotron" style="background-image: url('images/cric.jpeg'); backdrop-filter: blur(0px); background-size: cover; background-color: #192233; color: #000000; padding: 350px 200px; min-height: 100%;">
    <!-- <img src="{% static '/images/cric.jpeg' %}">-->
     <div class="container">
      <div class="centered">
