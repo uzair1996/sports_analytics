@@ -4,6 +4,8 @@ from . import views
 from .views_api import views_api
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,6 +13,8 @@ urlpatterns = [
     path('login/',views.LoginPage,name='login'),
     path('home/',views.home,name='home'),
     path('logout/',views.LogoutPage,name='logout'),
+    url(r'^media/(?P<path>.*)$', serve,{'document_root':       settings.MEDIA_ROOT}), 
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
     #path('home.html',views_api.images1,name='images1'),
 
     #path("home.html",views.home, name='home'),
@@ -29,6 +33,7 @@ urlpatterns = [
     path("series/",views_api.my_view6, name='my_view6'),
     path("matches/",views_api.my_view4, name='my_view4'),
     path("tableau/",views.tableau, name='my_view4'),
+    path("player/",views.player, name='player'),
 
 
 
