@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+
+
+  <script>
+    function createFilter(table, index) {
+    var options = [];
+    table.find('tr').each(function (i, row) {
+      var row = $(row);
+      var cells = row.find('td');
+      if (cells.length > 0) {
+        var value = cells.eq(index).text().trim();
+        if (!options.includes(value)) {
+          options.push(value);
+        }
+      }
+    });
+
+    var select = $('<select>');
+    select.append('<option value="">All</option>');
+    $.each(options, function (i, value) {
+      select.append('<option value="' + value + '">' + value + '</option>');
+    });
+
+    select.on('change', function () {
+      var selectedValue = $(this).val();
+      table.find('tr').each(function (i, row) {
+        var row = $(row);
+        var cells = row.find('td');
+        if (cells.length > 0) {
+          var cellValue = cells.eq(index).text().trim();
+          if (selectedValue === "" || cellValue === selectedValue) {
+            row.show();
+          } else {
+            row.hide();
+          }
+        }
+      });
+    });
+
+    return select;
+  }
+
+  $(document).ready(function() {
+    // Code for creating filters
+    var table = $('.my-table');
+    var filtersRow = $('<tr>');
+    table.find('thead th').each(function (i, th) {
+      var filter = createFilter(table, i);
+      var th = $(th);
+      var filterTh = $('<th>').append(filter);
+      filtersRow.append(filterTh);
+    });
+    table.find('thead').append(filtersRow);
+
+    // Code for tab switching
+    $('.nav-tabs a').click(function(){
+      $(this).tab('show');
+    });
+  });
+
+  </script>
+  
+
+
+
+
+  </script>
+  
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="/home">
+          <img src="{% static '/images/logo.png' %}" alt="Example image" class="img-thumbnail" alt="error" width="70" height="70">
+
+          </a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="navbar-text align-middle"><a href="/home">Home</a></li>
+        <li class="navbar-text align-middle"><a href="/player">Player</a></li>
+        <li class="navbar-text align-middle"><a href="/series">Series</a></li>
+        <li class="navbar-text align-middle"><a href="/matches">Matches</a></li>
+        <li class="navbar-text align-middle"><a href="/tableau">Tableau</a></li>
+
+      </ul>
+      <form class="navbar-form navbar-left" method="get" action="/series">
+        <div class="input-group">
+          <input type="text" class="navbar-text align-middle" placeholder="Search" name="search" value="{{ search_query }}">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right"> <!-- Add this line -->
+        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li> <!-- Add this line -->
+      </ul> <!-- Add this line -->
+    </div>
+  </nav>
+
+  <!--
+  <div class="tab-container">
+    <h2>Series</h2>
+    <div class="row">
+      <div class="col-md-3">
+        <ul class="nav nav-tabs flex-column" id="myTab">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu1">Test</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu2">ODI</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu3">T20</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-9">
+        <div class="tab-content">
+          <div id="menu1" class="tab-pane fade">
+            <h3>Home</h3>
+            <p>Morbi semper maur.</p>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Series</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Match Type</th>
+                    <th>Venue</th>
+                    <th>City</th>
+                    <th>Winning Team</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for series in test_series %}
+                  <tr>
+                    <td>{{ series.series_name }}</td>
+                    <td>{{ series.series_start_date }}</td>
+                    <td>{{ series.series_end_date }}</td>
+                    <td>{{ series.match_type }}</td>
+                    <td>{{ series.venue }}</td>
+                    <td>{{ series.city }}</td>
+                    <td>{{ series.winning_team }}</td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td colspan="7">No results found.</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="menu2" class="tab-pane fade">
+            <h3>Test</h3>
+            <p>Donec suscipit diam sed neque eleifend, eu consequat neque consectetur. Nulla facilisi. Mauris euismod metus ut vestibulum egestas.</p>
+          </div>
+          <div id="menu3" class="tab-pane fade">
+            <h3>ODI</h3>
+            <p>Donec suscipit diam sed neque eleifend, eu consequat neque consectetur. Nulla facilisi. Mauris euismod metus ut vestibulum egestas.</p>
+          </div>
+          <div id="menu4" class="tab-pane fade">
+            <h3>T20</h3>
+            <p>Donec suscipit diam sed neque eleifend, eu consequat neque consectetur. Nulla facilisi. Mauris euismod metus ut vestibulum egestas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>-->
+  <div class="container">
+    <h2>Series</h2>
+    <p>The below tables show the Cricket series and winner of each series.</p>
+  
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+      <li><a data-toggle="tab" href="#menu1">Test</a></li>
+      <li><a data-toggle="tab" href="#menu2">ODI</a></li>
+      <li><a data-toggle="tab" href="#menu3">T20</a></li>
+    </ul>
+  
+    <div class="tab-content">
+      <div id="home" class="tab-pane fade in active">
+        
+        <div class="row">
+          <div class="col-sm-8">
+            <table class="my-table">
+              <thead>
+              <tr>
+                <th scope="col">Series</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Match Type</th>
+                <th scope="col">Venue</th>
+                <th scope="col">City</th>
+                <th scope="col">Winning Team</th>
+              </tr>
+    
+              
+              </thead>
+    
+              {% for sts in queryset %}
+                <tr>
+                  <td>{{sts.series_name}} </td>
+                  <td> {{sts.series_start_date}}</td>
+                  <td> {{sts.series_end_date}}</td>
+                  <td> {{sts.match_type}}</td>
+                  <td> {{sts.venue}}</td>
+                  <td> {{sts.city}}</td>
+                  <td> {{sts.winning_team}}</td>
+                </tr>
+              {% endfor %}
+            
+            </table>
+          </div>
+          
+        </div>
+      </div>
+      <div id="menu1" class="tab-pane fade">
+        <h3>Test</h3>
+        <div class="row">
+          <div class="col-sm-8">
+            <table class="my-table">
+              <thead>
+              <tr>
+                <th scope="col">Series</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Match Type</th>
+                <th scope="col">Venue</th>
+                <th scope="col">City</th>
+                <th scope="col">Winning Team</th>
+              </tr>
+              </thead>
+    
+              {% for sts in queryset %}
+  
+                  {% if sts.match_type == "Test" %}
+                    <tr>
+                    <td>{{sts.series_name}}</td>
+                    <td>{{sts.series_start_date}}</td>
+                    <td>{{sts.series_end_date}}</td>
+                    <td>{{sts.match_type}}</td>
+                    <td>{{sts.venue}}</td>
+                    <td>{{sts.city}}</td>
+                    <td>{{sts.winning_team}}</td>
+                  </tr>
+              {% endif %}
+            {% endfor %}
+            
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="menu2" class="tab-pane fade">
+        <h3>ODI</h3>
+        <div class="row">
+          <div class="col-sm-8">
+            <table class="my-table">
+              <thead>
+              <tr>
+                <th scope="col">Series</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Match Type</th>
+                <th scope="col">Venue</th>
+                <th scope="col">City</th>
+                <th scope="col">Winning Team</th>
+              </tr>
+              </thead>
+    
+              {% for sts in queryset %}
+  
+                  {% if sts.match_type == "ODI" %}
+                    <tr>
+                    <td>{{sts.series_name}}</td>
+                    <td>{{sts.series_start_date}}</td>
+                    <td>{{sts.series_end_date}}</td>
+                    <td>{{sts.match_type}}</td>
+                    <td>{{sts.venue}}</td>
+                    <td>{{sts.city}}</td>
+                    <td>{{sts.winning_team}}</td>
+                  </tr>
+              {% endif %}
+            {% endfor %}
+            
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="menu3" class="tab-pane fade">
+        <h3>T20</h3>
+        <div class="row">
+          <div class="col-sm-8">
+            <table class="my-table">
+              <thead>
+              <tr>
+                <th scope="col">Series</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Match Type</th>
+                <th scope="col">Venue</th>
+                <th scope="col">City</th>
+                <th scope="col">Winning Team</th>
+              </tr>
+              </thead>
+    
+              {% for sts in queryset %}
+  
+                  {% if sts.match_type == "T20" %}
+                    <tr>
+                    <td>{{sts.series_name}}</td>
+                    <td>{{sts.series_start_date}}</td>
+                    <td>{{sts.series_end_date}}</td>
+                    <td>{{sts.match_type}}</td>
+                    <td>{{sts.venue}}</td>
+                    <td>{{sts.city}}</td>
+                    <td>{{sts.winning_team}}</td>
+                  </tr>
+              {% endif %}
+            {% endfor %}
+            
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+
+  <!--
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-8">
+        <table class="my-table">
+          <thead>
+          <tr>
+            <th scope="col">Series</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Match Type</th>
+            <th scope="col">Venue</th>
+            <th scope="col">City</th>
+            <th scope="col">Winning Team</th>
+          </tr>
+
+          
+          </thead>
+
+          {% for sts in queryset %}
+            <tr>
+              <td>{{sts.series_name}} </td>
+              <td> {{sts.series_start_date}}</td>
+              <td> {{sts.series_end_date}}</td>
+              <td> {{sts.match_type}}</td>
+              <td> {{sts.venue}}</td>
+              <td> {{sts.city}}</td>
+              <td> {{sts.winning_team}}</td>
+            </tr>
+          {% endfor %}
+        
+        </table>
+      </div>
+      <div class="col-sm-4">
+        right division 
+      </div>
+    </div>
+  </div>-->
+
+
+
+</body>
+</html>

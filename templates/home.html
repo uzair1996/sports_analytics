@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Beyond the Numbers</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script>
+
+  
+/* const facts = document.querySelectorAll('.fact');
+let currentFact = 0;
+let nextFact = 1;
+let prevFact = facts.length - 1;
+
+setInterval(() => {
+  facts[currentFact].classList.remove('active');
+  facts[nextFact].classList.add('next');
+  facts[prevFact].classList.add('prev');
+
+  setTimeout(() => {
+    facts[nextFact].classList.remove('next');
+    facts[prevFact].classList.remove('prev');
+    facts[currentFact].classList.add('active');
+
+    currentFact = (currentFact + 1) % facts.length;
+    nextFact = (nextFact + 1) % facts.length;
+    prevFact = (prevFact + 1) % facts.length;
+  }, 1000);
+}, 5000);*/
+
+$(document).ready(function(){
+  $('.news-slider').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true, // enable autoplay
+    autoplaySpeed: 3000, // set autoplay speed to 5 seconds
+    dots: true,
+    arrows: false
+  });
+  
+});
+  
+
+// Select all the fact elements
+const facts = document.querySelectorAll('.fact');
+
+// Set the index of the current, next and previous fact
+let currentFact = 0;
+let nextFact = 1;
+let prevFact = facts.length - 1;
+
+// Function to switch to the next fact
+function switchToNextFact() {
+  // Remove the active class from the current fact
+  facts[currentFact].classList.remove('active');
+  // Add the next class to the next fact
+  facts[nextFact].classList.add('next');
+  // Add the prev class to the previous fact
+  facts[prevFact].classList.add('prev');
+
+  // Set a timeout to remove the next and prev classes and add the active class
+  setTimeout(() => {
+    // Remove the next class from the next fact
+    facts[nextFact].classList.remove('next');
+    // Remove the prev class from the previous fact
+    facts[prevFact].classList.remove('prev');
+    // Add the active class to the current fact
+    facts[currentFact].classList.add('active');
+
+    // Update the index of the current, next and previous fact
+    currentFact = (currentFact + 1) % facts.length;
+    nextFact = (nextFact + 1) % facts.length;
+    prevFact = (prevFact + 1) % facts.length;
+  }, 1000);
+}
+
+// Set an interval to switch to the next fact every 5 seconds
+setInterval(switchToNextFact, 5000);
+
+// Loop through each fact element and add event listeners
+facts.forEach((fact) => {
+  fact.addEventListener('mouseover', (e) => {
+    // Get the icon element and rotate it
+    const icon = e.currentTarget.querySelector('.fact-icon');
+    icon.style.transform = 'rotate(360deg)';
+
+    // Get the title and text elements and fade them in
+    const title = e.currentTarget.querySelector('.fact-title');
+    title.style.opacity = '1';
+    title.style.transform = 'translateY(-10px)';
+    const text = e.currentTarget.querySelector('.fact-text');
+    text.style.opacity = '0';
+    text.style.transform = 'translateY(10px)';
+    setTimeout(() => {
+      text.style.opacity = '1';
+      text.style.transform = 'translateY(0)';
+    }, 200);
+
+  });
+
+  fact.addEventListener('mouseleave', (e) => {
+    // Get the icon element and rotate it back to the original position
+    const icon = e.currentTarget.querySelector('.fact-icon');
+    icon.style.transform = 'rotate(0deg)';
+
+    // Get the title and text elements and fade them out
+    const title = e.currentTarget.querySelector('.fact-title');
+    title.style.opacity = '0';
+    title.style.transform = 'translateY(0px)';
+    const text = e.currentTarget.querySelector('.fact-text');
+    text.style.opacity = '0';
+    text.style.transform = 'translateY(10px)';
+  });
+});
+
+// Animate the facts when the page loads
+// Animate the facts when the page loads
+window.addEventListener('load', () => {
+  let delay = 0;
+  facts.forEach((fact) => {
+    // Add a random rotation to the fact icon
+    const icon = fact.querySelector('.fact-icon');
+    const randomRotation = Math.floor(Math.random() * 360);
+    icon.style.transform = `rotate(${randomRotation}deg)`;
+
+    // Add the animate class to the fact element
+    setTimeout(() => {
+      fact.classList.add('animate');
+    }, delay);
+    delay += 200;
+  });
+});
+
+var dialog = document.querySelector('#my-dialog');
+      var showDialogButton = document.querySelector('#show-dialog-btn');
+      var closeDialogButton = document.querySelector('#close-dialog-btn');
+
+      showDialogButton.addEventListener('click', function() {
+        dialog.showModal();
+      });
+
+      closeDialogButton.addEventListener('click', function() {
+        dialog.close();
+      });
+
+const boxes = document.querySelectorAll('.box-container');
+boxes.forEach(box => {
+  box.addEventListener('mouseover', () => {
+    box.classList.add('animate');
+  });
+
+  box.addEventListener('mouseleave', () => {
+    box.classList.remove('animate');
+  });
+});
+  </script>
+
+
+
+
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="/home">	
+        <img src="{% static '/images/logo.png' %}" alt="Example image" class="img-thumbnail" alt="error" width="70" height="70">
+        </a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="navbar-text align-middle"><a href="/home">Home</a></li>
+      <li class="navbar-text align-middle"><a href="/player">Player</a></li>
+      <li class="navbar-text align-middle"><a href="/series">Series</a></li>
+      <li class="navbar-text align-middle"><a href="/matches">Matches</a></li>
+      <li class="navbar-text align-middle"><a href="/tableau">Tableau</a></li>
+
+
+    </ul>  
+    <form class="navbar-form navbar-left" action="/action_page.php">
+      <div class="input-group">
+        <input type="text" class="navbar-text align-middle" placeholder="Search" name="search">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>    
+      </div>
+    </form>
+    <ul class="nav navbar-nav navbar-right"> <!-- Add this line -->
+      <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li> <!-- Add this line -->
+    </ul> <!-- Add this line -->
+  </div>
+</nav>
+
+
+
+
+  <div class="jumbotron" style="background-image: url('{% static 'images/cric.jpeg' %}'); backdrop-filter: blur(0px); background-size: cover; background-color: #192233; color: #000000; padding: 350px 200px; min-height: 100%;">
+   <!-- <img src="{% static '/images/cric.jpeg' %}">-->
+    <div class="container">
+     <div class="centered">
+      <div style="background: rgba(153, 149, 149, 0.567); padding: 10px; text-align: center;">
+        <h1>Welcome to Sports Analytics</h1>
+        <p>Get the latest insights and analysis on your favorite sports teams and players!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- 
+  <div class="container1 my-5">
+    <h2 class="text-center mb-4">Interesting Facts about Cricket</h2>
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4 text-center fact">
+        <p class="mb-0">Cricket is the second most popular sport in the world</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 text-center fact">
+        <p class="mb-0">Cricket wickets originally only had two stumps</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 text-center fact">
+        <p class="mb-0">Women’s cricket was played as early as the 18th century</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 text-center fact">
+        <p class="mb-0">The longest cricket match lasted 14 days</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 text-center fact">
+        <p class="mb-0">Fact 5</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 text-center fact">
+        <p class="mb-0">Fact 6</p>
+      </div>
+    </div>
+  -->
+  <div class="container1 my-5">
+    <h3 class="text-center mb-4">Interesting Facts about Cricket</h3>
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-4">
+        <div class="fact">
+          <div class="fact-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h3 class="fact-title">Cricket is the second most popular sport in the world</h3>
+          <p class="fact-text">Cricket is played in over 100 countries and has over 2.5 billion fans worldwide.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="fact image2">
+          <div class="fact-icon">
+            <i class="fas fa-female" ></i>
+          </div>
+          <h3 class="fact-title">Women’s cricket was played as early as the 18th century</h3>
+          <p class="fact-text">The first recorded women's cricket match was played in 1745 between two villages in Surrey, England.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="fact image3">
+          <div class="fact-icon">
+            <i class="fas fa-stopwatch"></i>
+          </div>
+          <h3 class="fact-title">The longest cricket match lasted 14 days</h3>
+          <p class="fact-text">The match was played between England and South Africa in 1939 and ended in a draw after 10 days of play.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    
+    
+
+  </div>
+  <div class="container2">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="news">
+          <h2>Latest News</h2>
+          <div class="news-slider" >
+            <div class="news-item">
+              <a href="https://www.rediff.com/cricket/report/sachin-at-50-ive-seen-god-and-he-bats-at-no-4-for-india-in-tests-pix/20230424.htm">
+              <h3>'I've seen God and he bats at No 4 for India in Tests'</h3></a>
+              <a href="https://www.rediff.com/cricket/report/sachin-at-50-ive-seen-god-and-he-bats-at-no-4-for-india-in-tests-pix/20230424.htm">
+              <img src="{% static '/images/sachin.jpeg'%}" class="img-thumbnail" alt="error" width="800" height="60"> </a>
+              <p>As Sachin Tendulkar turns 50, here are memorable words spoken about the batting legend by teammates, ex-cricketers, commentators and opposition.</p>
+              <a href="https://www.rediff.com/cricket/report/sachin-at-50-ive-seen-god-and-he-bats-at-no-4-for-india-in-tests-pix/20230424.htm" class="read-more">Read More</a>
+            </div>
+            <div class="news-item">
+              <a href="https://timesofindia.indiatimes.com/sports/cricket/ipl/top-stories/srh-vs-dc-highlights-all-round-axar-patel-hands-delhi-capitals-second-win-sunrisers-hyderabad-lose-three-on-the-trot/articleshow/99740480.cms">
+              <h3>All-round Axar Patel hands Delhi Capitals second win, Sunris ..
+              </h3></a>
+              <a href="https://timesofindia.indiatimes.com/sports/cricket/ipl/top-stories/srh-vs-dc-highlights-all-round-axar-patel-hands-delhi-capitals-second-win-sunrisers-hyderabad-lose-three-on-the-trot/articleshow/99740480.cms">
+              <img src="{% static 'images/axar.webp'%}" class="img-thumbnail" alt="error" width="800" height="60" > </a>
+              <p>Axar Patel's all-round heroics trumped Washington Sundar superb efforts with bat and ball as Delhi Capitals edged Sunrisers Hyderabad by 7 runs in a low-scoring last-over thriller in Hyderabad.</p>
+              <a href="https://timesofindia.indiatimes.com/sports/cricket/ipl/top-stories/srh-vs-dc-highlights-all-round-axar-patel-hands-delhi-capitals-second-win-sunrisers-hyderabad-lose-three-on-the-trot/articleshow/99740480.cms" class="read-more">Read More</a>
+            </div>
+            <div class="news-item">
+              <a href="https://indianexpress.com/article/sports/cricket/pak-vs-nz-t20-mark-chapman-hundred-8574029/">
+              <h3>Mark Chapman’s maiden ton leads New Zealand to T20 series comeback draw</h3></a>
+              <a href="https://indianexpress.com/article/sports/cricket/pak-vs-nz-t20-mark-chapman-hundred-8574029/">
+                <img src="{% static 'images/mark.jpeg'%}" class="img-thumbnail" alt="error" width="800" height="60" > </a>
+              <p>Mark Chapman’s blistering maiden Twenty20 century powered an inexperienced New Zealand to a series-leveling victory against Pakistan on Monday.</p>
+              <a href="https://indianexpress.com/article/sports/cricket/pak-vs-nz-t20-mark-chapman-hundred-8574029/" class="read-more">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="footer">
+    <img src="images/logo.png" class="img-thumbnail" alt="error" width="70" height="70">
+    Beyond the numbers : A Deep Dive into Sports Performance Metrics
+    @Copyright Big Data Battalion 2023- All Right Reserved. 
+    <a id="show-dialog-btn">About</a>
+    
+    <dialog id="my-dialog">
+      <h2>About</h2>
+      <p>Through a single website, you can follow your favorite cricket teams from all around the world. You can get coverage from other fans who are just like you. 
+        The platform for your sports reporting, innovation, and being the ultimate fan is Beyond the Numbers.</p>
+      <button id="close-dialog-btn">Close</button>
+    </dialog>
+  </div>
+</div>
+<h4>Contact Us</h4>
+<a href="mailto:dsavanur@gmail.com">dsavanur@gmail.com</a>
+<a href="https://medium.com/@dsavanur/sports-analytics-beyond-the-numbers-71770e560537">Blog</a>
+<script src="script.js"></script>
+</body>
+</html>
