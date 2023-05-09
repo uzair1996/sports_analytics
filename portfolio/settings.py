@@ -14,7 +14,8 @@ from pathlib import Path
 import os.path, sys
 
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
-sys.path.append("/Users/uzairpachhapure/Desktop/desktop/csu/Assignments/sem 2/big data/project/sports_analysis_website/beyond_the_numbers_project")
+sys.path.append(os.path.dirname(os.getcwd()))
+#sys.path.append("/Users/uzairpachhapure/Desktop/desktop/csu/Assignments/sem 2/big data/project/sports_analysis_website/beyond_the_numbers_project")
 os.environ["PATH"] += os.getcwd()
 import constants
 import os
@@ -156,11 +157,11 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'static'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, 'static'),
+#]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
